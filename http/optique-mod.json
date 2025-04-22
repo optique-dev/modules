@@ -1,0 +1,10 @@
+{
+  "name": "http",
+  "type": "application",
+  "url": "github.com/Courtcircuits/optique-modules/http",
+  "ignore": [
+    "go.mod",
+    "go.sum",
+    "example.go"
+  ]
+}

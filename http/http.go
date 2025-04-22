@@ -1,43 +1,43 @@
 package http
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-// please implement the Repository interface
-
 type Http struct {
-	handlers []Handler
-	app      *fiber.App
-	config   *config.Config
+	listen_addr string
+	app         *fiber.App
+	handlers    []Handler
 }
 
-func NewHttp(app *fiber.App, config *config.Config) *Http {
+func NewHttp(config Config) (*Http, error) {
 	return &Http{
-		handlers: []Handler{},
-		app:      app,
-	}
+		listen_addr: config.ListenAddr,
+		app:         fiber.New(),
+		handlers:    []Handler{},
+	}, nil
 }
 
-func (m *Http) Register(handler Handler) {
+func (m *Http) WithHandler(handler Handler) {
 	m.handlers = append(m.handlers, handler)
 }
 
-func (m *Http) Bootstrap() error {
-	app := fiber.New(fiber.Config{
-		ErrorHandler: DefaultErrorHandler,
-	})
-	app.Use(recover.New())
+func (m *Http) Ignite() error {
+	m.app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+	}))
+
+	m.app.Use(logger.New())
+
 	for _, handler := range m.handlers {
-		handler.Register(app)
+		handler.Register(m.app)
 	}
 
-	log.Fatal(app.Listen(m.config.Http.Port))
+	return m.app.Listen(m.listen_addr)
 }
 
 func (m *Http) Stop() error {
-	return nil
+	return m.app.Shutdown()
 }
