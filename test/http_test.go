@@ -7,7 +7,7 @@ import (
 	httpclient "net/http"
 )
 
-func InitHTTP() *http.Http {
+func InitHTTP() http.Http {
 	health := http.NewHealthController()
 	app, err := http.NewHttp(http.Config{
 		ListenAddr: ":8080",
@@ -20,7 +20,7 @@ func InitHTTP() *http.Http {
 	return app
 }
 
-func IgniteHTTP(t *testing.T, app *http.Http) {
+func IgniteHTTP(t *testing.T, app http.Http) {
 	go func() {
 		if err := app.Ignite(); err != nil {
 			t.Fatal(err)

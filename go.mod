@@ -5,6 +5,16 @@ go 1.24.2
 require github.com/Courtcircuits/optique-modules/http v0.0.0-20230831135626
 
 require (
+	github.com/golang-migrate/migrate/v4 v4.18.2 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/jmoiron/sqlx v1.4.0 // indirect
+	github.com/lib/pq v1.10.9 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+)
+
+require (
+	github.com/Courtcircuits/optique-modules/sql v0.0.0-00010101000000-000000000000
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/gofiber/fiber/v2 v2.52.6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -20,3 +30,5 @@ require (
 )
 
 replace github.com/Courtcircuits/optique-modules/http => ./http
+
+replace github.com/Courtcircuits/optique-modules/sql => ./sql

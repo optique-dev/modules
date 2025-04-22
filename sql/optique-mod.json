@@ -1,0 +1,9 @@
+{
+  "name": "sql",
+  "type": "infrastructure",
+  "url": "github.com/Courtcircuits/optique-modules/sql",
+  "ignore": [
+    "go.mod",
+    "go.sum"
+  ]
+}
