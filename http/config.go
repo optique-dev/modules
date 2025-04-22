@@ -1,5 +1,5 @@
 package http
 
 type Config struct {
-	ListenAddr string `json:"listen_addr"`
+	ListenAddr string `mapstructure:"listen_addr"`
 }
