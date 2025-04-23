@@ -2,11 +2,12 @@ package sql
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/jmoiron/sqlx"
+
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 )
 
@@ -42,14 +43,7 @@ func NewSql(config Config) (Sql, error) {
 }
 
 func (m sql) Setup() error {
-	ex, err := os.Executable()
-	if err != nil {
-		return err
-	}
-
-	migrationsPath := filepath.Join(filepath.Dir(ex), m.migrations)
-
-	migrations, err := migrate.New(fmt.Sprintf("file://%s", migrationsPath), fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable", m.username, m.password, m.host, m.port, m.dbname))
+	migrations, err := migrate.New(fmt.Sprintf("file://%s", m.migrations), fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable", m.username, m.password, m.host, m.port, m.dbname))
 
 	if err != nil {
 		return err

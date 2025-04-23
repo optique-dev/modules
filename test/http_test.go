@@ -3,8 +3,10 @@ package test
 import (
 	"testing"
 
-	"github.com/Courtcircuits/optique-modules/http"
 	httpclient "net/http"
+
+	"github.com/optique-dev/core"
+	"github.com/optique-dev/modules/http"
 )
 
 func InitHTTP() http.Http {
@@ -17,6 +19,7 @@ func InitHTTP() http.Http {
 		panic(err)
 	}
 	app.WithHandler(health)
+	core.Info("Should have started HTTP server")
 	return app
 }
 

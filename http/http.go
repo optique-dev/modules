@@ -18,19 +18,19 @@ type http struct {
 	handlers    []Handler
 }
 
-func NewHttp(config Config) (Http, error) {
-	return http{
+func NewHttp(config Config) (*http, error) {
+	return &http{
 		listen_addr: config.ListenAddr,
 		app:         fiber.New(),
 		handlers:    []Handler{},
 	}, nil
 }
 
-func (m http) WithHandler(handler Handler) {
+func (m *http) WithHandler(handler Handler) {
 	m.handlers = append(m.handlers, handler)
 }
 
-func (m http) Ignite() error {
+func (m *http) Ignite() error {
 	m.app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 	}))
@@ -44,6 +44,6 @@ func (m http) Ignite() error {
 	return m.app.Listen(m.listen_addr)
 }
 
-func (m http) Stop() error {
+func (m *http) Stop() error {
 	return m.app.Shutdown()
 }

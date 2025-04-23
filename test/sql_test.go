@@ -1,19 +1,22 @@
 package test
 
 import (
+	"os"
 	"testing"
 
-	"github.com/Courtcircuits/optique-modules/sql"
+	"github.com/optique-dev/modules/sql"
 )
 
 func InitSQL() sql.Sql {
+	current_dir, _ := os.Getwd()
+	migrations := current_dir + "/migrations"
 	app, err := sql.NewSql(sql.Config{
-		Migrations: "./migrations",
+		Migrations: migrations,
 		Username:   "optique",
 		Password:   "optique",
 		Host:       "0.0.0.0",
 		Port:       5432,
-		Dbname:   "optique",
+		Dbname:     "optique",
 	})
 	if err != nil {
 		panic(err)
