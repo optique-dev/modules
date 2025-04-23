@@ -5,6 +5,7 @@
   "ignore": [
     "go.mod",
     "go.sum",
-    "example.go"
+    "example.go",
+    "*_test.go"
   ]
 }
