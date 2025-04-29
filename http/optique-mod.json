@@ -7,8 +7,5 @@
     "go.sum",
     "example.go",
     "*_test.go"
-  ],
-  "scripts": {
-    "dev": "air"
-  }
+  ]
 }
