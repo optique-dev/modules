@@ -1,0 +1,9 @@
+{
+  "name": "grpc",
+  "type": "application",
+  "url": "github.com/optique-dev/modules/grpc",
+  "ignore": [
+    "go.mod",
+    "go.sum"
+  ]
+}

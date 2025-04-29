@@ -5,5 +5,8 @@
   "ignore": [
     "go.mod",
     "go.sum"
-  ]
+  ],
+  "scripts": {
+    "migrate NAME": "migrate create -ext=sql -dir=migrations -seq {{NAME}}"
+  }
 }
