@@ -6,16 +6,16 @@ type Grpc interface {
 	// Add more methods here
 }
 
-type grpc struct {}
+type grpc struct{}
 
 func Newgrpc() (Grpc, error) {
-  panic("implement me")
+	panic("implement me")
 }
 
 func (m grpc) Ignite() error {
-  panic("implement me")
+	panic("implement me")
 }
 
 func (m grpc) Stop() error {
-  panic("implement me")
+	panic("implement me")
 }
