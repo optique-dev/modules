@@ -1,0 +1,10 @@
+{
+  "name": "kafka-publisher",
+  "type": "infrastructure",
+  "url": "github.com/optique-dev/modules/kafka-publisher",
+  "ignore": [
+    "go.mod",
+    "go.sum"
+  ],
+  "scripts": null
+}
