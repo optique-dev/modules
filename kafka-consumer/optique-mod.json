@@ -1,0 +1,10 @@
+{
+  "name": "kafka-consumer",
+  "type": "application",
+  "url": "github.com/optique-dev/modules/kafka-consumer",
+  "ignore": [
+    "go.mod",
+    "go.sum"
+  ],
+  "scripts": null
+}
