@@ -2,38 +2,36 @@ package kafkapublisher
 
 import (
 	"context"
-	"time"
 
 	"github.com/segmentio/kafka-go"
 )
 
-type KafkaConsumer interface {
+type KafkaPublisher interface {
 	Setup() error
 	Shutdown() error
 	Write(message []byte) error
 	// Add more methods here
 }
 
-type kafkaConsumer struct {
-	conn *kafka.Conn
+type kafkaPublisher struct {
+	conn *kafka.Writer
 }
 
-func NewKafkaConsumer(kafka_config Config) (*kafkaConsumer, error) {
-	conn, err := kafka.DialLeader(context.Background(), "tcp", kafka_config.Brokers[0], kafka_config.Topic, 0)
-	if err != nil {
-		return nil, err
+func NewKafkaPublisher(kafka_config Config) (*kafkaPublisher, error) {
+	writer := kafka.Writer{
+		Addr:     kafka.TCP(kafka_config.Brokers...),
+		Topic:    kafka_config.Topic,
+		Balancer: &kafka.RoundRobin{},
 	}
-	conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
-	return &kafkaConsumer{conn: conn}, nil
+	return &kafkaPublisher{conn: &writer}, nil
 }
 
-func (m *kafkaConsumer) Setup() error {
+func (m *kafkaPublisher) Setup() error {
 	return nil
 }
 
-func (m *kafkaConsumer) Write(message []byte) error {
-	m.conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
-	_, err := m.conn.WriteMessages(kafka.Message{
+func (m *kafkaPublisher) Write(message []byte) error {
+	err := m.conn.WriteMessages(context.Background(), kafka.Message{
 		Value: message,
 	})
 	if err != nil {
@@ -42,6 +40,6 @@ func (m *kafkaConsumer) Write(message []byte) error {
 	return nil
 }
 
-func (m *kafkaConsumer) Shutdown() error {
+func (m *kafkaPublisher) Shutdown() error {
 	return m.conn.Close()
 }
