@@ -9,4 +9,14 @@ services:
       POSTGRES_DB: optique
     ports:
       - 5432:5432
-
+  quickwit:
+    image: quickwit/quickwit:latest
+    ports:
+      - 7280:7280
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:7280/api/v1/version"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: ["run"]
+    container_name: "search"
